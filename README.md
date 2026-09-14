@@ -1,1 +1,1 @@
-# joelscrazyweirdgaime.github.io
+# joelscrazyweirdgame.github.io
