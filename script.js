@@ -1,7 +1,7 @@
 // ==========================================
 // ACCESS CODE
 // ==========================================
-const ACCESS_CODE = "342048";
+const ACCESS_CODE = "340248";
 
 const goButton = document.getElementById("goButton");
 const unlockButton = document.getElementById("unlockButton");
