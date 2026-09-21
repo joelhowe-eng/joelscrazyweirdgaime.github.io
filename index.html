@@ -4,9 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Joel's Crazy Weird Gaime</title>
-
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -14,9 +12,23 @@
 
     <h1>🎮 Joel's Crazy Weird Gaime 🎮</h1>
 
-    <p>Welcome to my crazy weird website!</p>
+    <p>Enter the 6-digit code to play:</p>
 
-    <button id="goButton">GO!</button>
+    <input
+        type="text"
+        id="codeInput"
+        maxlength="6"
+        inputmode="numeric"
+        placeholder="000000"
+    >
+
+    <button id="unlockButton">UNLOCK</button>
+
+    <p id="codeMessage"></p>
+
+    <br>
+
+    <button id="goButton" disabled>GO!</button>
 
     <script src="script.js"></script>
 
