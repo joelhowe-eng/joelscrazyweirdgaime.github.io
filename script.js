@@ -9,41 +9,38 @@ const unlockButton = document.getElementById("unlockButton");
 const codeInput = document.getElementById("codeInput");
 const codeMessage = document.getElementById("codeMessage");
 
-// ----- CODE CHECK -----
-
-unlockButton.addEventListener("click", () => {
+// CHECK THE CODE
+unlockButton.addEventListener("click", function () {
 
     if (codeInput.value === ACCESS_CODE) {
-
         goButton.disabled = false;
         codeMessage.textContent = "Unlocked!";
 
         codeInput.disabled = true;
         unlockButton.disabled = true;
-
     } else {
-
         codeMessage.textContent = "Wrong code - try again.";
         codeInput.value = "";
-
     }
 
 });
 
-// Only allow numbers in the code box
-codeInput.addEventListener("input", () => {
+// Only allow numbers
+codeInput.addEventListener("input", function () {
     codeInput.value = codeInput.value.replace(/\D/g, "");
 });
 
-// Pressing Enter also tries to unlock
-codeInput.addEventListener("keydown", (event) => {
+// Allow Enter key
+codeInput.addEventListener("keydown", function (event) {
     if (event.key === "Enter") {
         unlockButton.click();
     }
 });
 
 
-// ----- CHATAIGNE CONNECTION -----
+// ==========================================
+// CHATAIGNE / WEBSOCKET
+// ==========================================
 
 let socket;
 
@@ -53,18 +50,16 @@ function connectToRelay() {
         "wss://tiny-silence-3ae5.joel-howe.workers.dev/websocket"
     );
 
-    socket.addEventListener("open", () => {
+    socket.addEventListener("open", function () {
         console.log("Connected to game relay!");
     });
 
-    socket.addEventListener("close", () => {
-        console.log("Disconnected from game relay.");
-
-        // Try to reconnect after 2 seconds
+    socket.addEventListener("close", function () {
+        console.log("Disconnected - reconnecting...");
         setTimeout(connectToRelay, 2000);
     });
 
-    socket.addEventListener("error", (error) => {
+    socket.addEventListener("error", function (error) {
         console.error("WebSocket error:", error);
     });
 }
@@ -72,19 +67,17 @@ function connectToRelay() {
 connectToRelay();
 
 
-// ----- GO BUTTON -----
+// ==========================================
+// GO BUTTON
+// ==========================================
 
-goButton.addEventListener("click", () => {
+goButton.addEventListener("click", function () {
 
     if (socket && socket.readyState === WebSocket.OPEN) {
-
         socket.send("GO");
         console.log("GO signal sent!");
-
     } else {
-
-        console.error("Game relay is not connected.");
         alert("The game connection isn't ready yet. Try again.");
-
     }
+
 });
