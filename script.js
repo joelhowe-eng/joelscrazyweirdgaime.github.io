@@ -4,12 +4,10 @@
 const ACCESS_CODE = "342048";
 // ==========================================
 
-
 const goButton = document.getElementById("goButton");
 const unlockButton = document.getElementById("unlockButton");
 const codeInput = document.getElementById("codeInput");
 const codeMessage = document.getElementById("codeMessage");
-
 
 // ----- CODE CHECK -----
 
@@ -32,14 +30,20 @@ unlockButton.addEventListener("click", () => {
 
 });
 
-
 // Only allow numbers in the code box
 codeInput.addEventListener("input", () => {
     codeInput.value = codeInput.value.replace(/\D/g, "");
 });
 
+// Pressing Enter also tries to unlock
+codeInput.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+        unlockButton.click();
+    }
+});
 
-// ----- EXISTING CHATAIGNE CONNECTION -----
+
+// ----- CHATAIGNE CONNECTION -----
 
 let socket;
 
@@ -63,7 +67,6 @@ function connectToRelay() {
     socket.addEventListener("error", (error) => {
         console.error("WebSocket error:", error);
     });
-
 }
 
 connectToRelay();
@@ -84,5 +87,4 @@ goButton.addEventListener("click", () => {
         alert("The game connection isn't ready yet. Try again.");
 
     }
-
 });
