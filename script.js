@@ -1,43 +1,54 @@
 // ==========================================
-// CHANGE YOUR 6-DIGIT CODE HERE
+// ACCESS CODE
 // ==========================================
 const ACCESS_CODE = "342048";
-// ==========================================
 
 const goButton = document.getElementById("goButton");
 const unlockButton = document.getElementById("unlockButton");
 const codeInput = document.getElementById("codeInput");
 const codeMessage = document.getElementById("codeMessage");
 
-// CHECK THE CODE
-unlockButton.addEventListener("click", function () {
+function checkCode() {
 
-    if (codeInput.value === ACCESS_CODE) {
+    // Remove spaces or anything that isn't a number
+    const enteredCode = String(codeInput.value)
+        .replace(/\D/g, "")
+        .trim();
+
+    console.log("Entered:", enteredCode);
+    console.log("Expected:", ACCESS_CODE);
+
+    if (enteredCode === ACCESS_CODE) {
+
         goButton.disabled = false;
-        codeMessage.textContent = "Unlocked!";
+        codeMessage.textContent = "✅ Unlocked!";
 
         codeInput.disabled = true;
         unlockButton.disabled = true;
+
     } else {
-        codeMessage.textContent = "Wrong code - try again.";
-        codeInput.value = "";
+
+        codeMessage.textContent =
+            "❌ Wrong code. You entered: " + enteredCode;
+
     }
+}
 
-});
+unlockButton.addEventListener("click", checkCode);
 
-// Only allow numbers
 codeInput.addEventListener("input", function () {
-    codeInput.value = codeInput.value.replace(/\D/g, "");
+    this.value = this.value.replace(/\D/g, "").slice(0, 6);
 });
 
-// Allow Enter key
 codeInput.addEventListener("keydown", function (event) {
     if (event.key === "Enter") {
-        unlockButton.click();
+        checkCode();
     }
 });
 
-
+// ==========================================
+// CHATAIGNE / WEBSOCKET
+// ==========================================
 // ==========================================
 // CHATAIGNE / WEBSOCKET
 // ==========================================
